@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:proj_01_ecommerce/components/default_button.dart';
+import 'package:proj_01_ecommerce/constants.dart';
 import 'package:proj_01_ecommerce/screens/splash/components/splash_content.dart';
+import 'package:proj_01_ecommerce/size_config.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -29,16 +32,63 @@ class _BodyState extends State<Body> {
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
-        child: PageView.builder(
-            onPageChanged: (value) {
-              setState(() {
-                currentPage = value;
-              });
-            },
-            itemBuilder: (context, index) => SplashContent(
-                  text: splashData[index]["text"],
-                  image: splashData[index]["image"],
-                )),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: PageView.builder(
+                  onPageChanged: (value) {
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
+                  itemBuilder: (context, index) => SplashContent(
+                        text: splashData[index]["text"],
+                        image: splashData[index]["image"],
+                      )),
+            ),
+            Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(splashData.length,
+                            (index) => buildDot(index: index)),
+                      ),
+                      Spacer(
+                        flex: 2,
+                      ),
+                      DefaultButton(
+                        text: "Continue",
+                        press: () {
+                          print("Sign In");
+                          // Navigator.pushNamed(context, SignInScreen.routeName);
+                        },
+                      )
+                    ],
+                  ),
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  AnimatedContainer buildDot({int index}) {
+    return AnimatedContainer(
+      duration: kAnimationDuration,
+      margin: EdgeInsets.only(right: 5),
+      height: 6,
+      width: currentPage == index ? 20 : 6,
+      decoration: BoxDecoration(
+        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
+        borderRadius: BorderRadius.circular(3),
       ),
     );
   }
