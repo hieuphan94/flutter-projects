@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proj_01_ecommerce/components/default_button.dart';
 import 'package:proj_01_ecommerce/constants.dart';
+import 'package:proj_01_ecommerce/screens/sign-in/sign_in.dart';
 import 'package:proj_01_ecommerce/screens/splash/components/splash_content.dart';
 import 'package:proj_01_ecommerce/size_config.dart';
 
@@ -67,13 +68,12 @@ class _BodyState extends State<Body> {
                       DefaultButton(
                         text: "Continue",
                         press: () {
-                          print("Sign In");
-                          // Navigator.pushNamed(context, SignInScreen.routeName);
+                          Navigator.pushNamed(context, SignInScreen.routeName);
                         },
                       )
                     ],
                   ),
-                ))
+                )),
           ],
         ),
       ),
